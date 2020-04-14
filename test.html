@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <style>
+            div{
+                width: 200px;
+                font-size: 100px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div>MOUSEON</div>
+        <table style="width: 300px;height: 50px;font-size: 30px;border:black solid 10px">
+            <tr>
+            <td>O</td>
+            <td>X</td>
+            </tr>
+        </table>
+        <div id = 'target'></div>
+        <script>
+            /*document.addEventListener("DOMContentLoaded",function(){ //열면 바로실행되는 익명함수 에서 colorchangeblue가 열면바로실행 클릭이벤트리스너 생성+ div에도마우스오버 이벤트리스너 생성
+                colorchange('blue');
+                giveeventtocell('blue')
+                celle
+            })
+            function colorchange(x){
+                var mouseon = document.querySelector('div')
+                mouseon.addEventListener("click",function(){
+                    mouseon.style.color = x
+                })
+            }
+            var button = document.querySelector('div')
+            button.addEventListener("mouseover",function(){
+                button.style.backgroundColor = 'red'
+            })
+            button.addEventListener("mouseout",function(){
+                button.style.backgroundColor = 'white'
+            })
+            
+            function giveeventtocell(x){
+                var needtochange = document.querySelectorAll('td')
+                for (i=0;i<needtochange.length;i++){
+                    console.log(needtochange[i])
+                    needtochange.addEventListener("mouseover",function(){
+                    needtochange.style.color = x
+                    needtochange.innerHTML = 'hi'
+                    })
+                    needtochange.addEventListener("mouseout",function(){
+                        needtochange.innerHTML = ''
+                    })
+                }
+                
+            }
+            */
+            /*정상임이렇게하면 됨var cell = document.querySelectorAll('td')
+            for(i=0;i<cell.length;i++){
+                //cell[i].addEventListener("mouseover",maker)
+                console.log(cell[i])
+            }
+            function maker(){
+                this.style.color = 'blue'
+            }
+            */
+            var cell = document.querySelectorAll('td')
+            hello = () => {
+                document.querySelector('#target').innerHTML = this
+                
+            }
+            for(i=0;i<cell.length;i++){
+                cell[i].addEventListener("mouseover",hello)
+                cell[i].addEventListener("mouseout",function(){
+                    this.style.color = ''
+                    this.innerHTML = ''
+                })
+                cell[i].addEventListener("mouseover",function(){
+                    document.querySelector('#target').innerHTML = this
+                })
+            }
+        </script>
+    </body>
+</html>
+
+<!--이건됨       
+            document.addEventListener("click" , function(){
+            document.querySelector('div').style.color = 'pink' ;
+            });
+
+    -->
+<!--안도미
+what if target = document.querySelector('div')
+target.addEvner("click", function(){ target.style.bacolr = 'red'});
+
+-->
+<!--이거 안됨 cannot read property addeventlistner
+    what if document.queryselector('div').addEventl("click" , function(){
+        document.qu('div').style.backgroundcolor = ''
+    })
+-->
+<!--안됨
+    var target = document.querySelector('div');
+            target.addEventListener("click",function(){
+                target.style.color = 'red';
+-->
+<!--이거 됨
+                function colorchange(){
+                document.querySelector('div').style.color = 'pink';
+            }
+            document.addEventListener("click", colorchange)
+--

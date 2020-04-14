@@ -1,0 +1,59 @@
+h1{
+    font-size: 70px;
+    margin-top:70px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+table{
+    border-collapse: collapse;
+    margin:auto;
+    margin-bottom: 50px;
+    margin-top:50px;
+}
+td{
+    width: 150px;
+    height: 150px;
+    padding-top:10px;
+    text-align: center;
+    font-size: 100px;
+}
+tr{
+    border-bottom: 8px solid black;
+}
+tr:nth-child(3){/*세로줄*/
+    border:none;
+}
+td:nth-child(1){/*가로줄*/
+    border-right: black solid 8px;
+}
+td:nth-child(2){
+    border-right: black solid 8px;
+}
+.button{
+    width: 300px;
+    margin: auto;
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.button div{
+    margin: 7px;
+    text-align: center;
+    border-radius: 25px;
+    padding-top: 7px;
+    font-size: 120px;
+    height: 130px;
+    border: black 3px solid;
+}
+.blue{
+    color: blue;
+}
+.red{
+    color:red;
+}
+.box{
+    height: 50px;
+    width: 300px;
+    text-align: center;
+    margin:auto;
+}
