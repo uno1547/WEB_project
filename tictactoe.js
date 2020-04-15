@@ -7,31 +7,35 @@ document.addEventListener("DOMContentLoaded",function(){//페이지로드후에 
 function whenclick(){//whenclick 함수
     if(this.className=='Blue'){
         var yourColor = 'Blue'
+        var AIcolor = 'Red'
     }else{
         var yourColor = 'Red'
+        var AIcolor = 'Blue'
     }
     var trash = document.querySelector('.button')
+    var TF = true
     trash.remove()
     console.log(yourColor)
-    gamestart(yourColor)
+    console.log(AIcolor)
+    gamestart(yourColor,AIcolor,TF)
 }
-function gamestart(x){
-    if(x=='Blue'){
-        client(x)
+function gamestart(x,y,z){
+    if(x=='Blue' && z == true){
+            client(x)
+            //AI(y)
+            //judge()
     }else{
         client(x)
+        //AI(y)
+        //judge()
+        }
     }
-}
 function client(cl){//클라이언트 
     var click = false
     var td = document.querySelectorAll('td')
-    hello = ()=>{
-        console.log(td[i])
-        console.log(i)
-    }
     if(cl == 'Blue'){
         for(i=0;i<td.length;i++){
-            td[i].addEventListener("mouseover",hello)
+            td[i].addEventListener("mouseover",blueshadowon)
             td[i].addEventListener("mouseout",shadowoff)
             td[i].addEventListener("click",blueput)
 
@@ -41,9 +45,11 @@ function client(cl){//클라이언트
             td[i].addEventListener("mouseover",redshadowon)
             td[i].addEventListener("mouseout",shadowoff)
             td[i].addEventListener("click",redput)
-            console.log(td[i])
-            console.log(i)
     }
+}
+function AI(cl){
+    
+    
 }
 function blueshadowon(){
     if(click == false){
@@ -59,7 +65,7 @@ function blueput(){
     click = true
 }
 function redshadowon(){
-    if(click==false){
+    if(click == false){
     this.style.color = 'Salmon'
     this.innerHTML = 'X'
     }else{
