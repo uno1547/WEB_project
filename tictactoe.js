@@ -22,11 +22,11 @@ function whenclick(){//whenclick 함수 gamestart 실행
     console.log('clicked')
     ////////////////////////
 }*/
-function whetherput(TF){
-    console.log('emptycellready')
+function whetherput(TF,aicolor){
+    console.log('emptycellready')                              /////111111111111111111111111111111
     var empty_list = []
     if(TF == true){
-        console.log('True!!')
+        console.log('True!!')                                       ////////222222222222222222222
         var cells = document.querySelectorAll('td')
         for(i=0;i<9;i++){
             console.log(cells[i])
@@ -36,27 +36,32 @@ function whetherput(TF){
                 empty_list.push(cells[i])
             }
         }
-        console.log(empty_list)
+        console.log(empty_list)                                    //////333333333333333
     }else{
         //pass
     }
+    AI(aicolor,empty_list)
 }
 function gamestart(x,y){//색깔받고 게임스타트
-    client(x,y)
+    for(i=0;i<3;i++){
+        console.log('level'+i)
+        client(x,y)
+    }
     /*if(whetherclicked == true){
         console.log('clicked')
     }else{
         console.log()
     }*/   
 }
-function AI(aicl){
+function AI(aicl,box){
     console.log('AIcoloris'+aicl)
+    var randomcell = box[Math.floor(Math.random()* box.length)]
+    console.log(randomcell)
+    console.log('yourrandomcell')
+    randomcell.style.color = aicl
+    randomcell.innerHTML = 'X'
 }
-function GetEmptyCell(){
-    cells = document.querySelectorAll('td')
-
-}
-function client(cl,aicl){//옌그냥 이벤트 리스너등록까지만하고끝
+function client(cl,aicl){//옌그냥 이벤트 리스너등록까지만하고끝 등록했던 redblueput에서 whetherput
     var td = document.querySelectorAll('td');
     click = false
     if(cl == 'Blue'){
@@ -72,9 +77,6 @@ function client(cl,aicl){//옌그냥 이벤트 리스너등록까지만하고끝
             td[i].addEventListener("click",redput)
             }
         }    
-    /*if(clicked){
-        AI(aicl)
-    }*/
 }
 function blueshadowon(){
     if(click == false){
@@ -97,11 +99,10 @@ function blueput(){
         this.style.color = 'Blue'
         this.innerHTML = 'O'
         click = true
-        var whetherclick = true
-        console.log(whetherclick)//true 출력 근데 왜 wheterput에 true가전달이안돼ㅠㅠㅠㅠㅠ
-        whetherput(whetherclick)//안됨
-        console.log('blueput')
-        AI('Red')//////////
+        var whetherclick = true//true 출력 근데 왜 wheterput에 true가전달이안돼ㅠㅠㅠㅠㅠ
+        whetherput(whetherclick,'Red')//안됨
+        console.log('blueput')                                      //////////444444444444444
+        //AI('Red')//////////                                             5555555555555555555
         
         /*if(this.length == 0 ){
             console.log('it says 0')
@@ -122,9 +123,10 @@ function redput(){
         this.style.color ='Red'
         this.innerHTML = 'X'
         click = true
-        whetherput()
+        var whetherclick = true//true 출력 근데 왜 wheterput에 true가전달이안돼ㅠㅠㅠㅠㅠ
+        whetherput(whetherclick,'Blue')
         console.log('redput')
-        AI('Blue')//////////
+        //////////
     }else{
         //pass
     }
