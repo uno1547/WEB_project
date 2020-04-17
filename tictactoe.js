@@ -28,7 +28,7 @@ function gamestart(x,y,z){
         client(x)
         //AI(y)
         //judge()
-        }
+        }dfkfjdkf
     }
 helloguys
 function client(cl){//클라이언트 
