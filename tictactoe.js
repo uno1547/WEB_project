@@ -30,6 +30,7 @@ function gamestart(x,y,z){
         //judge()
         }
     }
+helloguys
 function client(cl){//클라이언트 
     var click = false
     var td = document.querySelectorAll('td')
