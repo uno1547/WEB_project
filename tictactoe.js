@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded",function(){//페이지로드후에 OX버튼에 이벤트리스너(whenclick)등록
     var each_button = document.querySelectorAll('.button div')
-    for(i=0;i<each_button.length;i++){
-        each_button[i].addEventListener("click",whenclick)
+    for(q=0;q<each_button.length;q++){
+        each_button[q].addEventListener("click",whenclick)
     }
 })
 
@@ -16,22 +16,22 @@ function whenclick(){//whenclick 함수 gamestart 실행
     }
     var trash = document.querySelector('.button')
     trash.remove()
-    gamestart(yourColor,AIcolor)
+    game(yourColor,AIcolor)
 }
 
 
 function whetherput(TF,aicolor){
-    console.log('emptycellready')                              /////111111111111111111111111111111
+    //console.log('emptycellready')                              /////111111111111111111111111111111
     var empty_list = []
     if(TF == true){//put이 true=> emptycell만듬
-        console.log('True!!')                                       ////////222222222222222222222
+        //console.log('True!!')                                       ////////222222222222222222222
         var cells = document.querySelectorAll('td')
-        for(i=0;i<9;i++){
-            console.log(cells[i])
-            if(cells[i].textContent !=''){//만약 채워진칸이다 여기 고쳐야함
-                console.log(cells[i])
+        for( k = 0 ; k <9;k++){
+            //console.log(cells[i])
+            if(cells[k].textContent !=''){//만약 채워진칸이다 
+                console.log(cells[k])
             }else{//나머지 안채워진칸들
-                empty_list.push(cells[i])
+                empty_list.push(cells[k])
             }
         }
         console.log(empty_list)                                    //////333333333333333
@@ -40,21 +40,67 @@ function whetherput(TF,aicolor){
     }
     AI(aicolor,empty_list)
 }
-
+function arrarycompare(a,b){////arraycompare([1,2,3],[4,5,6])
+    var critlen = a.length
+    var targetlen = b.length
+    if(critlen == targetlen){//두리스트의 길이같으면
+        a.sort(function(a,b){
+            return a - b//      요소비교
+        })
+        b.sort(function(c,d){
+            return c - d
+        })
+        console.log(a)
+        console.log(b)
+        for(i=0;i<critlen;i++){
+            if(a == orray && a[i]==b[i]){
+                console.log('bluewin')
+            }else if(b == xrray && a[i]==b[i]){
+                console.log('redwin')
+            }
+        }
+        
+    }
+}
+function judge(x){
+    console.log('hi')
+    var winarray = [
+        [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]
+    ]
+    var orray = []
+    var xrray = []
+    var cellslength = x.length
+    console.log(cellslength)
+    for(celnum=0;celnum<cellslength;celnum++){
+        if(x[celnum].innerHTML == 'O'){
+            console.log(celnum)
+            orray.push(celnum)
+        }else if(x[celnum].innerHTML == 'X'){
+            console.log(celnum)
+            xrray.push(celnum)
+        }else{
+            //pass
+        }
+    }//채워져있는칸index 추출
+    console.log(orray)
+    console.log(xrray)
+    for(cases = 0; cases<8 ; cases++ ){
+        arraycompare(winarray[cases],orray)
+        arraycompare(winarray[cases],xrray)
+        
+    }
+}
 
 function gamestart(x,y){//색깔받고 게임스타트
-    for(i=0;i<3;i++){
-        console.log('level'+i)
-        game(x,y)
-    }
+
 }
 
 
 function AI(aicl,box){
-    console.log('AIcoloris'+aicl)
+    //console.log('AIcoloris'+aicl)
     var randomcell = box[Math.floor(Math.random()* box.length)]
-    console.log(randomcell)
-    console.log('yourrandomcell')
+    //console.log(randomcell)
+    //console.log('yourrandomcell')
     if(aicl == 'Red'){
         randomcell.style.color = aicl
         randomcell.innerHTML = 'X'
@@ -62,10 +108,13 @@ function AI(aicl,box){
         randomcell.style.color = aicl
         randomcell.innerHTML = 'O'
     }
+    var currenttable = document.querySelectorAll('td')
+    console.log(currenttable)
+    judge(currenttable)
 }
 
 
-function game(cl,aicl){//옌그냥 이벤트 리스너등록까지만하고끝 등록했던 redblueput에서 whetherput
+function game(cl,aicl){//옌그냥 이벤트 리스너등록까지만하고끝 등록했던 redblueput에서 whetherput 중복추가
     var td = document.querySelectorAll('td');
     click = false
     if(cl == 'Blue'){
