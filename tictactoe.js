@@ -1,34 +1,34 @@
-document.addEventListener("DOMContentLoaded",function(){//페이지로드후에 OX버튼에 이벤트리스너(whenclick)등록
+document.addEventListener("DOMContentLoaded", function() {//페이지로드후에 OX버튼에 이벤트리스너(whenclick)등록
     var each_button = document.querySelectorAll('.button div')
-    for( q = 0 ; q < each_button.length ; q++){
-        each_button[q].addEventListener( "click" , whenclick )
+    for(q = 0; q < each_button.length; q++) {
+        each_button[q].addEventListener("click", whenclick)
     }
 })
 
 
-function whenclick(){//whenclick 함수 gamestart 실행
-    if(this.className =='Blue'){//누른버튼이 블루
+function whenclick() {//whenclick 함수 gamestart 실행
+    if(this.className == 'Blue') {//누른버튼이 블루
         var yourColor = 'Blue'
         var AIcolor = 'Red'                                //랜덤으로 두기
-    }else{//누른 버튼이 레드
+    }else {//누른 버튼이 레드
         var yourColor = 'Red'
         var AIcolor = 'Blue'
     }
     var trash = document.querySelector('.button')
     trash.remove()
-    game( yourColor , AIcolor )
+    game(yourColor, AIcolor)
 }
 
 
-function whetherput( TF , aicolor ){
+function whetherput(TF, aicolor){
     //console.log('emptycellready')                              /////111111111111111111111111111111
     var empty_list = []
-    if(TF == true){//put이 true=> emptycell만듬
+    if(TF == true) {//put이 true=> emptycell만듬
         //console.log('True!!')                                       ////////222222222222222222222
         var cells = document.querySelectorAll('td')
-        for( k = 0 ; k <9 ; k++ ){
+        for(k = 0; k <9; k++) {
             //console.log(cells[i])
-            if(cells[k].textContent != ''){//만약 채워진칸이다 
+            if(cells[k].textContent != '') {//만약 채워진칸이다 
                 console.log(cells[k])
             }else{//나머지 안채워진칸들
                 empty_list.push(cells[k])
@@ -38,24 +38,24 @@ function whetherput( TF , aicolor ){
     }else{
         //pass
     }
-    AI( aicolor , empty_list )
+    AI(aicolor, empty_list)
 }
-function arrarycompare ( a , b ) {////arraycompare([1,2,3],[4,5,6])
+function arrarycompare (a, b) {////arraycompare([1,2,3],[4,5,6])
     var critlen = a.length
     var targetlen = b.length
-    if( critlen == targetlen ){//두리스트의 길이같으면
-        a.sort(function ( a , b ) {
+    if( critlen == targetlen ) {//두리스트의 길이같으면
+        a.sort(function (a, b) {
             return a - b//      요소비교
         })
-        b.sort(function ( c , d ) {
+        b.sort(function (c, d) {
             return c - d
         })
-        console.log( a )
-        console.log( b )
-        for( i=0 ; i<critlen ; i++ ){
-            if(a == orray && a[i] == b[i]){
+        console.log(a)
+        console.log(b)
+        for(i=0; i<critlen; i++) {
+            if(a == orray && a[i] == b[i]) {
                 console.log('bluewin')
-            }else if(b == xrray && a[i] == b[i]){
+            }else if(b == xrray && a[i] == b[i]) {
                 console.log('redwin')
             }
         }
@@ -71,32 +71,26 @@ function judge(x){
     var xrray = []
     var cellslength = x.length
     console.log(cellslength)
-    for( celnum=0 ; celnum<cellslength ; celnum++ ){
-        if(x[celnum].innerHTML == 'O'){
-            console.log( celnum )
-            orray.push( celnum )
-        }else if(x[celnum].innerHTML == 'X'){
-            console.log( celnum )
-            xrray.push( celnum )
+    for(celnum=0; celnum<cellslength; celnum++) {
+        if(x[celnum].innerHTML == 'O') {
+            console.log(celnum)
+            orray.push(celnum)
+        }else if(x[celnum].innerHTML == 'X') {
+            console.log(celnum)
+            xrray.push(celnum)
         }else{
             //pass
         }
     }//채워져있는칸index 추출
-    console.log( orray )
-    console.log( xrray )
-    for(cases = 0; cases<8 ; cases++ ){
-        arraycompare( winarray[cases] , orray )
-        arraycompare( winarray[cases] , xrray )
+    console.log(orray)
+    console.log(xrray)
+    for(cases = 0; cases<8; cases++){
+        arraycompare(winarray[cases], orray)
+        arraycompare(winarray[cases], xrray)
         
     }
 }
-
-function gamestart(x,y){//색깔받고 게임스타트
-
-}
-
-
-function AI(aicl,box){
+function AI(aicl, box){
     //console.log('AIcoloris'+aicl)
     var randomcell = box[Math.floor(Math.random()* box.length)]
     //console.log(randomcell)
@@ -109,32 +103,32 @@ function AI(aicl,box){
         randomcell.innerHTML = 'O'
     }
     var currenttable = document.querySelectorAll('td')
-    console.log( currenttable )
-    judge( currenttable )
+    console.log(currenttable)
+    judge(currenttable)
 }
 
 
-function game( cl , aicl ){//옌그냥 이벤트 리스너등록까지만하고끝 등록했던 redblueput에서 whetherput 중복추가
+function game(cl, aicl){//옌그냥 이벤트 리스너등록까지만하고끝 등록했던 redblueput에서 whetherput 중복추가
     var td = document.querySelectorAll('td');
     click = false
     if(cl == 'Blue'){
-        for( i=0 ; i<td.length ; i++ ){
-            td[i].addEventListener( "mouseover",blueshadowon)
-            td[i].addEventListener( "mouseout",shadowoff)
-            td[i].addEventListener( "click",blueput)
+        for(i=0; i<td.length; i++) {
+            td[i].addEventListener("mouseover", blueshadowon)
+            td[i].addEventListener("mouseout", shadowoff)
+            td[i].addEventListener("click", blueput)
         }
     }else{
-        for( i=0 ; i<td.length ; i++ ){
-            td[i].addEventListener("mouseover",redshadowon)
-            td[i].addEventListener("mouseout",shadowoff)
-            td[i].addEventListener("click",redput)
+        for(i=0; i<td.length; i++) {
+            td[i].addEventListener("mouseover", redshadowon)
+            td[i].addEventListener("mouseout", shadowoff)
+            td[i].addEventListener("click", redput)
             }
         }    
 }
 
 
-function blueshadowon(){
-    if(click == false){
+function blueshadowon() {
+    if(click == false) {
     this.style.color = 'DeepSkyBlue'
     this.innerHTML = 'O'
     }else{
@@ -143,8 +137,8 @@ function blueshadowon(){
 }
 
 
-function redshadowon(){
-    if(click == false){
+function redshadowon() {
+    if(click == false) {
     this.style.color = 'Salmon'
     this.innerHTML = 'X'
     }else{
@@ -153,13 +147,13 @@ function redshadowon(){
 }
 
 
-function blueput(){
-    if(click == false){
+function blueput() {
+    if(click == false) {
         this.style.color = 'Blue'
         this.innerHTML = 'O'
         click = true
         var whetherclick = true
-        whetherput(whetherclick,'Red')//안됨
+        whetherput(whetherclick, 'Red')//안됨
         console.log('blueput')                                      //////////444444444444444
     }else{
         //pass
@@ -167,13 +161,13 @@ function blueput(){
 }
 
 
-function redput(){
+function redput() {
     if(click == false){//클릭하면?
         this.style.color ='Red'
         this.innerHTML = 'X'
         click = true
         var whetherclick = true
-        whetherput(whetherclick,'Blue')
+        whetherput(whetherclick, 'Blue')
         console.log('redput')
     }else{
         //pass
@@ -181,7 +175,7 @@ function redput(){
 }
 
 
-function shadowoff(){
+function shadowoff() {
     if(click == false){
         this.innerHTML = ''
         this.style.color = ''
