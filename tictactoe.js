@@ -20,7 +20,7 @@ function Whenclick() {//Whenclick 함수 gamestart 실행
 }
 
 
-function whetherput(TF, aicolor){
+function whetherput(TF, aicolor) {
     //console.log('emptycellready')                              /////111111111111111111111111111111
     var empty_list = []
     if(TF == true) {//put이 true=> emptycell만듬
