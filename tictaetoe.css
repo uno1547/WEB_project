@@ -52,8 +52,32 @@ td:nth-child(2){
     color:red;
 }
 .box{
-    height: 50px;
+    border: black solid 3px;
+    height: 80px;
     width: 300px;
+    font-size: 100px;
     text-align: center;
     margin:auto;
+}
+body{
+    margin:0
+
+}
+.gameover{
+    border-radius: 25px;
+    border: black solid 3px;
+    position: absolute;
+    margin: auto;
+    margin-top: 680;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 600px;
+    height: 190px;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 150px;
+    display: none;
+    
 }

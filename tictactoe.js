@@ -40,30 +40,6 @@ function whetherput(TF, aicolor) {
     }
     AI(aicolor, empty_list)
 }
-function arraycompare(a, b) {////arraycompare([1,2,3],[4,5,6])
-    var critlen = a.length
-    var targetlen = b.length
-    if(critlen == targetlen) {//두리스트의 길이같으면
-        a.sort(function (a, b) {
-            return a - b//     a 크기순정렬(굳이필요는없을듯)
-        })
-        b.sort(function (c, d) {
-            return c - d    //  b크기순정렬
-        })
-        console.log(a)
-        console.log(b)
-        for(i=0; i<critlen; i++) { //리스트 요소 비교하고 일치하면 게임끝
-            if(b == orray && a[i] == b[i]) {
-                console.log('bluewin')
-            } else if (b == xrray && a[i] == b[i]) {
-                console.log('redwin')
-            }
-        }
-        
-    } else {
-        console.log('Notthesamelength')
-    }
-}
 function judge(x) {//ai 에서 judge(currenttable받음)
     //console.log('hi')
     var winarray = [
@@ -77,20 +53,45 @@ function judge(x) {//ai 에서 judge(currenttable받음)
         if(x[celnum].innerHTML == 'O') {
             //console.log(celnum)
             orray.push(celnum)
+            orray.sort(function(a, b){
+                return a - b
+            })
         } else if (x[celnum].innerHTML == 'X') {
             //console.log(celnum)
             xrray.push(celnum)
+            xrray.sort(function(c, d){
+                return c - d
+            })
         } else {
             //pass
         }//Orray랑Xrray에 셀번호 넣음
     }//채워져있는칸index 추출
-    //console.log(orray)
-    //console.log(xrray)
-    for(cases = 0; cases<8; cases++) {
-        arraycompare(winarray[cases], orray)
-        arraycompare(winarray[cases], xrray)
-        
+    for(cases = 0; cases<8; cases++){//wincase 8가지 경우 읽으면서 orray와xrray비교 포함관계 있으면 true로 var ~~win에 저장
+        var orraywin = arraycontainsarray(orray, winarray[cases])
+        var xrraywin = arraycontainsarray(xrray, winarray[cases])
+        if(orraywin == true || xrraywin == true){//승부가남
+            gameover(orray, xrray)
+        }else{
+            
+        }
     }
+    console.log(orray)
+    console.log(xrray)
+}
+function gameover(O, X) {
+    if(O.length > X.length){
+        var result = document.querySelector('.gameover')
+        result.style.display = 'block'
+        result.innerHTML = 'Bluewin'
+    }else{
+        result.style.display = 'block'
+        result.innerHTML = 'Redwin'
+    }
+}
+function arraycontainsarray(target, wincase){
+    return wincase.every(function(value){
+        return target.indexOf(value) >= 0;
+    })
 }
 function AI(aicl, box) {
     //console.log('AIcoloris'+aicl)
