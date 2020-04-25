@@ -3,14 +3,17 @@ document.addEventListener("DOMContentLoaded", function() {
     for(q = 0; q < each_button.length; q++) {
         each_button[q].addEventListener("click", Whenclick)
     }
+    console.log(arraycontainsarray([3,4,6,7,8],[6,7,8]))
 })
 
 function Whenclick() {//Whenclick 함수 gamestart 실행
     if(this.className == 'Blue') {//누른버튼이 블루
         var YourColor = 'Blue'
+        console.log('yourchoiceisblue')
         //var AIcolor = 'Red'                                //랜덤으로 두기
     } else {//누른 버튼이 레드
         var YourColor = 'Red'
+        console.log('yourchoiceisred')
         //var AIcolor = 'Blue'
     }
     var trash = document.querySelector('.button')
@@ -21,71 +24,59 @@ function Whenclick() {//Whenclick 함수 gamestart 실행
 function clientturn(clientcolor) {
     console.log('client turn!') //옌그냥 이벤트 리스너등록까지만하고끝 등록했던 redblueput에서 whetherput 중복추가
     var td = document.querySelectorAll('td');
-    click = false
+    var sparecell = []
+    console.log(sparecell)
+    for(x=0; x<9; x++){
+        if(td[x].innerHTML == ''){
+            sparecell.push(td[x])
+        }else{
+            //pass
+        }
+    }
     if(clientcolor == 'Blue') {
-        for(i=0; i<td.length; i++) {
-            td[i].addEventListener("mouseover", blueshadowon)
-            td[i].addEventListener("mouseout", shadowoff)
-            td[i].addEventListener("click", blueput)
+        for(i=0; i<sparecell.length; i++) {
+            sparecell[i].addEventListener("mouseover", blueshadowon)
+            sparecell[i].addEventListener("mouseout", shadowoff)
+            sparecell[i].addEventListener("click", blueput)
         }
     } else {
-        for(i=0; i<td.length; i++) {
-            td[i].addEventListener("mouseover", redshadowon)
-            td[i].addEventListener("mouseout", shadowoff)
-            td[i].addEventListener("click", redput)
+        for(i=0; i<sparecell.length; i++) {
+            sparecell[i].addEventListener("mouseover", redshadowon)
+            sparecell[i].addEventListener("mouseout", shadowoff)
+            sparecell[i].addEventListener("click", redput)
             }
         }    
 }
 
 function blueshadowon() {
-    if(click == false) {
     this.style.color = 'DeepSkyBlue'
     this.innerHTML = 'O'
-    } else {
-        //pass
-    }
 }
 
 function redshadowon() {
-    if(click == false) {
     this.style.color = 'Salmon'
     this.innerHTML = 'X'
-    } else {
-        //pass
-    }
 }
 
 function blueput() {
-    if(click == false) {
         this.style.color = 'Blue'
         this.innerHTML = 'O'
         click = true
+        console.log('blueputactivated')
         judge('AI', 'Red')//안됨
-        console.log('blueput')                                      //////////444444444444444
-    } else {
-        //pass
-    }
 }
 
-function redput() {
-    if(click == false) {//클릭하면?
+function redput() {//클릭하면?
         this.style.color = 'Red'
         this.innerHTML = 'X'
         click = true
+        console.log('redputactivated')
         judge('AI', 'Blue')
-        console.log('redput')
-    } else {
-        //pass
-    }
 }
 
 function shadowoff() {
-    if(click == false) {
         this.innerHTML = ''
         this.style.color = ''
-    } else {
-        //pass
-    }
 }
 
 function AIturn(AIcolor){
@@ -117,11 +108,12 @@ function AIturn(AIcolor){
 
 function arraycontainsarray(target, wincase) {
     return wincase.every(function(value) {
-        target.indexOf(value) >= 0
+        return(target.indexOf(value) >= 0)
     })
 }
 
 function judge(turn, color) {
+    console.log('judgeactivated')
     var currenttable = document.querySelectorAll('td')
     var totalcellnumber = currenttable.length
     var winarray = [
@@ -142,33 +134,34 @@ function judge(turn, color) {
             emptylist.push(i)
         }
     }//셀별로 분류
-    console.log(orray)
-    console.log(xrray)
-    for(i = 0; i < winarray.length; i++) {//승부나는경우 판단
-        var bluewin = arraycontainsarray(orray, winarray[i])
-        var redwin = arraycontainsarray(xrray, winarray[i])
+    for(z = 0; z < winarray.length; z++) {//승부나는경우 판단
+        var bluewin = arraycontainsarray(orray, winarray[z])
+        var redwin = arraycontainsarray(xrray, winarray[z])
+        console.log(orray, winarray[z])
+        console.log(xrray, winarray[z])
+        console.log(bluewin, redwin)
         if(bluewin == true || redwin == true) {
             var status = 'gameover'
             console.log('gameover')
         }else{
-            //pass
+            console.log('notgameover')
         }
     }
     if(xrray.length + orray.length == 9){
         var status = 'draw'
     }else{
-        //pass
+        console.log('notdraw')
     }
 
     if(status == 'gameover') {
-        gameover(orray, xrray)
         console.log('status gameover')
+        gameover(orray, xrray)
     }else if(status == 'draw'){
-        draw()
         console.log('status draw')
+        draw()
     }else{
-        nextturn(turn, color)
         console.log('nextturn!!!')
+        nextturn(turn, color)
     }
 }
 
@@ -189,8 +182,8 @@ function draw(){
     drawboard.innerHTML = 'Draw'
 }
 
-function nextturn(currentturn, color){
-    if(currentturn == 'AI'){
+function nextturn(next, color){
+    if(next == 'AI'){
         AIturn(color)
     }else{
         clientturn(color)
