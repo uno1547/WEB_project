@@ -47,9 +47,11 @@ td:nth-child(2){
 }
 .blue{
     color: blue;
+    cursor: pointer;
 }
 .red{
     color:red;
+    cursor: pointer;
 }
 .box{
     border: black solid 3px;
