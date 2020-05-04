@@ -91,8 +91,55 @@ function shadowoff() {
         //pass
     }
 }
+function cellstyle(color, cell) {
+    if(color == 'Red') {
+        cell.style.color = color
+        cell.innerHTML = 'X'
+        cell.className = 'clicked'
+    } else {
+        cell.style.color = color
+        cell.innerHTML = 'O'
+        cell.className = 'clicked'
+    }
+}
 
+/*function whatisexclude(a, b) {
+    var need = []
+    for(var i = 0; i < b.length; i++) {
+        if(a.includes[b[i]]) {
+            //pass
+        } else {
+            need.push(b[i])
+        }
+    }
+    console.log(need)
+    return need
+}
+*/
 
+function howmanyinclude(a, b) {//[0,6],[0,3,6]//clientcell과 wincas비교하면서 몇개가겹치는지 뭐가 남는지 돌려주는함수
+    howmany = 0
+    emptynum = 0
+    need = []
+    for(var i = 0; i < a.length; i++) {
+        var isin = b.includes(a[i])//b ex)[0,3,6]에 0,3,6 각각이 몇개들어있는지+ 어떤게  
+        if(isin == true) {
+            howmany += 1
+        } else {
+            //emptynum += a[i]
+        }
+    }
+    if(howmany == 2) {
+        for(var i = 0; i < b.length; i++) {
+            if(a.includes(b[i])) {
+                //pass
+            } else {
+                need.push(b[i])
+            }
+        }
+    }
+    return need
+}
 function AIturn(AIcolor) {
     var winarray = [
         [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]
@@ -102,8 +149,8 @@ function AIturn(AIcolor) {
     var mycell = []
     var cells = document.querySelectorAll('td')
     var wheretodefense = []
-    var wheret
-    if(AIcolor == 'Red') {
+    var wheretoattack = []
+    if(AIcolor == 'Red') {//clientcell과 mycell분류 cell 번호 추출
         for(var i = 0; i < cells.length; i++) {
             if(cells[i].innerHTML == 'O') {
                 clientcell.push(i)
@@ -132,60 +179,82 @@ function AIturn(AIcolor) {
     }
     if(clientcell.length == 1) {
         var cornercells = [cells[0], cells[2], cells[6], cells[8]]
-        var randomcellnum = cornercells[Math.floor(Math.random()*cornercells.length)]
-        console.log(randomcellnum)
-        if((clientcell[0] == 0 || clientcell[0] == 1 || clientcell[0] == 2 || clientcell[0] == 3 || clientcell[0] == 5 || clientcell[0] == 6 || clientcell[0] == 7 || clientcell[0] == 8) && AIcolor == 'Red') {
-            cells[4].style.color = AIcolor
-            cells[4].innerHTML = 'X'
-            cells[4].className = 'clicked'
+        var randomcornercell = cornercells[Math.floor(Math.random()*cornercells.length)]
+        if((clientcell[0] == 0 || clientcell[0] == 2 || clientcell[0] == 6 || clientcell[0] == 8) && AIcolor == 'Red') {
+            cellstyle(AIcolor, cells[4])//0,2,6,8이후 4에 놓음
             judge('client', 'Blue')
-        } else if((clientcell[0] == 0 || clientcell[0] == 1 || clientcell[0] == 2 || clientcell[0] == 3 || clientcell[0] == 5 || clientcell[0] == 6 || clientcell[0] == 7 || clientcell[0] == 8) && AIcolor == 'Blue') {
-            cells[4].style.color = AIcolor
-            cells[4].innerHTML = 'O'
-            cells[4].className = 'clicked'
+        } else if((clientcell[0] == 0 || clientcell[0] == 2 || clientcell[0] == 6 || clientcell[0] == 8) && AIcolor == 'Blue') {
+            cellstyle(AIcolor, cells[4])//색깔
             judge('client', 'Red')
         } else if((clientcell[0] == 4) && AIcolor == 'Red') {
-            randomcellnum.style.color = AIcolor
-            randomcellnum.innerHTML = 'X'
-            randomcellnum.className = 'clicked'
+            cellstyle(AIcolor, randomcornercell)//가운데선일때 이후 0,2,6,8 중두게
             judge('client', 'Blue')
-        } else if((clientcell[0] == 4) && AIcolor == 'Blue') {
-            randomcellnum.style.color = AIcolor
-            randomcellnum.innerHTML = 'O'
-            randomcellnum.className = 'clicked'
+        } else if((clientcell[0] == 4) && AIcolor == 'Blue') {//1,3,5,7때 이후 02/06/68/28
+            cellstyle(AIcolor, randomcornercell)
             judge('client', 'Red')//얘 없어도 자동으로 clientturn으로 바뀌는것같은느낌 왠지 아직은 모르겠음
+        } else if(clientcell[0] == 1 && AIcolor == 'Red') {
+            var corner02cells = [cells[0], cells[2]]
+            var randomcorner02cell = corner02cells[Math.floor(Math.random()*corner02cells.length)]
+            cellstyle(AIcolor, randomcorner06cell)
+            judge('client', 'Blue')
+        } else if(clientcell[0] == 1 && AIcolor == 'Blue') {
+            var corner02cells = [cells[0], cells[2]]
+            var randomcorner02cell = corner02cells[Math.floor(Math.random()*corner02cells.length)]
+            cellstyle(AIcolor, randomcorner02cell)
+            judge('client', 'Red')
+        } else if(clientcell[0] == 3 && AIcolor == 'Red') {
+            var corner06cells = [cells[0], cells[6]]
+            var randomcorner06cell = corner06cells[Math.floor(Math.random()*corner06cells.length)]
+            cellstyle(AIcolor, randomcorner06cell)
+            judge('client', 'Blue')
+        } else if(clientcell[0] == 3 && AIcolor == 'Blue') {
+            var corner06cells = [cells[0], cells[6]]
+            var randomcorner06cell = corner06cells[Math.floor(Math.random()*corner06cells.length)]
+            cellstyle(AIcolor, randomcorner06cell)
+            judge('client', 'Red')
+        } else if(clientcell[0] == 7 && AIcolor == 'Red') {
+            var corner68cells = [cells[6], cells[8]]
+            var randomcorner68cell = corner68cells[Math.floor(Math.random()*corner68cells.length)]
+            cellstyle(AIcolor, randomcorner68cell)
+            judge('client', 'Blue')
+        } else if(clientcell[0] == 7 && AIcolor == 'Blue') {
+            var corner68cells = [cells[6], cells[8]]
+            var randomcorner68cell = corner68cells[Math.floor(Math.random()*corner68cells.length)]
+            cellstyle(AIcolor, randomcorner68cell)
+            judge('client', 'Red')
+        }  else if(clientcell[0] == 5 && AIcolor == 'Red') {
+            var corner28cells = [cells[2], cells[8]]
+            var randomcorner28cell = corner28cells[Math.floor(Math.random()*corner28cells.length)]
+            cellstyle(AIcolor, randomcorner28cell)
+            judge('client', 'Blue')
+        }  else if(clientcell[0] == 5 && AIcolor == 'Blue') {
+            var corner28cells = [cells[2], cells[8]]
+            var randomcorner28cell = corner28cells[Math.floor(Math.random()*corner28cells.length)]
+            cellstyle(AIcolor, randomcorner28cell)
+            judge('client', 'Red')
         } else {
             //pass
         }
-    } else {//아니면 else if
-        for(var i = 0; i < winarray.length; i++) {
-            cases = howmanyinclude(clientcell, winarray[i])
+    } else {//아니면 else if 이후 상대 2번이상둔경우
+        for(var i = 0; i < winarray.length; i++) {//승리케이스 읽으면서 현재 clientcell이 몇개 포함하고있는지 막을수는있게만듬
+            cases = howmanyinclude(clientcell, winarray[i])//ex)
             console.log(clientcell, winarray[i])
-            console.log(cases)     
-            if(cases == 2) {
-                wheretodefense.push(i)
-            }else if(cases == 1){
-
-            }else
+            console.log(cases)
+            if(cases.length != 0) {
+                wheretodefense.push(cases[0])
+                console.log(wheretodefense)
+            }    
         }
-    }
-    var winarray = [
-        [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]
-    ]
-
-
-function howmanyinclude(a, b) {
-    howmany = 0
-    for(var i = 0; i < a.length; i++) {
-        var isin = b.includes(a[i])//b ex)[0,3,6]에 0,3,6 각각이 몇개들어있는지+ 어떤게  
-        if(isin == true) {
-            howmany += 1
+        cellstyle(AIcolor,cells[wheretodefense[0]])
+        if(AIcolor == 'Red') {
+            judge('client', 'Blue')
         } else {
-            //pass
+            judge('client', 'Red')
         }
     }
-    return /*'the number of included element is '*/ howmany
 }
+
+
 /*    for(var cell=0; cell < cells.length; cell++) {
         if(AIcolor == 'Red' && cells[cell].innerHTML == 'O') {
             clientcell.push(cell)
@@ -211,7 +280,7 @@ function howmanyinclude(a, b) {
         judge('client', 'Red')
     }
 */
-}
+
 
 function arraycontainsarray(target, wincase) {
     return wincase.every(function(value) {
